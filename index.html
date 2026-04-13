@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>twice as interesting</title>
+<style>
+  :root {
+    --bg: #000000;
+    --fg: #ebdbb2;
+    --dim: #665c54;
+    --border: #1d2021;
+    --yellow: #fabd2f;
+    --orange: #fe8019;
+    --aqua: #8ec07c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--fg);
+  }
+  .split { display: flex; flex: 1; min-height: 100vh; }
+  .panel {
+    flex: 1;
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .panel:last-child { border-right: none; }
+  .left { color: var(--dim); }
+  .right { color: var(--fg); }
+  .label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    color: var(--dim);
+  }
+  .right .label { color: var(--orange); }
+  h1 {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: normal;
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  }
+  .right h1 { color: var(--yellow); }
+  .fact {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fact.fading {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--dim);
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 700px) {
+    .split { flex-direction: column; }
+    .panel { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="split">
+    <div class="panel left">
+      <div class="label">interesting.com</div>
+      <h1>A fact.</h1>
+      <p class="fact" id="left-fact">Honey never spoils.</p>
+    </div>
+    <div class="panel right">
+      <div class="label">twiceasinteresting.com</div>
+      <h1>A fact. Twice.</h1>
+      <p class="fact" id="right-fact-1">Honey never spoils.</p>
+      <p class="fact" id="right-fact-2">Honey never spoils.</p>
+    </div>
+  </div>
+  <footer>thank you for visiting the more interesting one</footer>
+
+<script>
+  const facts = [
+    "Honey never spoils.",
+    "Octopuses have three hearts.",
+    "A group of flamingos is called a flamboyance.",
+    "Bananas are berries. Strawberries are not.",
+    "Wombats produce cube-shaped poop.",
+    "The Eiffel Tower grows about 6 inches in summer.",
+    "Sharks existed before trees.",
+    "There are more stars in the universe than grains of sand on Earth.",
+    "A day on Venus is longer than a year on Venus.",
+    "Cows have best friends.",
+    "Sea otters hold hands while sleeping so they don't drift apart.",
+    "The unicorn is Scotland's national animal."
+  ];
+
+  const elements = [
+    document.getElementById('left-fact'),
+    document.getElementById('right-fact-1'),
+    document.getElementById('right-fact-2')
+  ];
+
+  let index = 0;
+  setInterval(() => {
+    elements.forEach(el => el.classList.add('fading'));
+    setTimeout(() => {
+      index = (index + 1) % facts.length;
+      elements.forEach(el => { el.textContent = facts[index]; });
+      elements.forEach(el => el.classList.remove('fading'));
+    }, 600);
+  }, 4000);
+</script>
+</body>
+</html>
